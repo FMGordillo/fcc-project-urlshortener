@@ -3,11 +3,13 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 
+const rateLimiterMiddleware = require('./utils/rate-limiter')
+
 // Basic Configuration
 const port = process.env.PORT || 3000
 
 app.use(cors())
-
+app.use(rateLimiterMiddleware)
 app.use('/public', express.static(`${process.cwd()}/public`))
 
 app.get('/', function (req, res) {
