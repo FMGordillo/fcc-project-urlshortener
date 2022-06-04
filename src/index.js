@@ -2,6 +2,7 @@ require('dotenv').config()
 const process = require('node:process')
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = express()
 
 const db = require('./utils/db')
@@ -17,6 +18,7 @@ const port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(rateLimiterMiddleware)
+app.use(bodyParser.json())
 app.use(router)
 
 app.listen(port, function () {

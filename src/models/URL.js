@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize/types')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../utils/db')
 
 const URLModel = sequelize.define('URL', {
@@ -7,9 +7,13 @@ const URLModel = sequelize.define('URL', {
     allowNull: false,
   },
   id: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
   },
 })
+
+// TODO: Improve this
+sequelize.sync()
 
 module.exports = URLModel
