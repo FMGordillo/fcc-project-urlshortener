@@ -4,6 +4,8 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express()
+const winston = require('winston')
+const loggerMiddleware = require('express-winston')
 
 const db = require('./utils/db')
 const rateLimiterMiddleware = require('./utils/rate-limiter')
@@ -18,7 +20,17 @@ const port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(rateLimiterMiddleware)
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(
+  loggerMiddleware.logger({
+    transports: [new winston.transports.Console()],
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.json()
+    ),
+  })
+)
 app.use(router)
 
 app.listen(port, function () {
