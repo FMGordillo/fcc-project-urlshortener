@@ -1,5 +1,5 @@
 require('dotenv').config()
-const process = require('node:process')
+const process = require('process')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')

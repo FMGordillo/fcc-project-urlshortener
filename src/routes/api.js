@@ -1,5 +1,5 @@
 const express = require('express')
-const dns = require('node:dns').promises
+const dns = require('dns').promises
 const URLModel = require('../models/URL')
 const router = express.Router()
 
