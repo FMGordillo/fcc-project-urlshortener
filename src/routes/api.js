@@ -35,10 +35,11 @@ router.post('/shorturl', async (req, res, next) => {
         original_url: urlData.url,
       })
     } else {
-      res.json({ error: 'Invalid URL' })
+      return res.json({ error: 'Invalid URL' })
     }
   } catch (error) {
-    next(error)
+    return res.json({ error: 'Invalid URL' })
+    // next(error)
   }
 })
 
