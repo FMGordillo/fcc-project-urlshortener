@@ -3,7 +3,7 @@ const dns = require('dns').promises
 const URLModel = require('../models/URL')
 const router = express.Router()
 
-router.get('/shorturl/:id', async (req, res, next) => {
+router.get('/shorturl/:id', async (req, res) => {
   try {
     const { id } = req.params
 
@@ -16,12 +16,14 @@ router.get('/shorturl/:id', async (req, res, next) => {
     }
   } catch (error) {
     console.log('DB Error', { error })
-    next(error)
+    return res.json({ error: 'No short URL found for the given input' })
+    // next(error)
   }
 })
 
-router.post('/shorturl', async (req, res, next) => {
+router.post('/shorturl', async (req, res) => {
   try {
+    console.log({ req })
     const { url } = req.body
 
     // TODO: Improve this
