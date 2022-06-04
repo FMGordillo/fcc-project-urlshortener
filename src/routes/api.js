@@ -12,7 +12,7 @@ router.get('/shorturl/:id', async (req, res, next) => {
     if (urlData) {
       return res.redirect(urlData.url)
     } else {
-      res.send({ error: 'No short URL found for the given input' })
+      res.json({ error: 'No short URL found for the given input' })
     }
   } catch (error) {
     console.log('DB Error', { error })
@@ -30,12 +30,12 @@ router.post('/shorturl', async (req, res, next) => {
 
     if (address) {
       const urlData = await URLModel.create({ url })
-      res.send({
+      res.json({
         short_url: urlData.id,
         original_url: urlData.url,
       })
     } else {
-      res.send({ error: 'Invalid URL' })
+      res.json({ error: 'Invalid URL' })
     }
   } catch (error) {
     next(error)
